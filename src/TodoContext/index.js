@@ -17,6 +17,8 @@ function TodoProvider(props){
     // creando un estado para compartirlo con todos los hijos
     const [searchValue, setSearchValue] = React.useState('');
 
+    const [openModal, setOpenModal] = React.useState(false);
+
     //contar los todos completados
     const completedTodos = todos.filter(todo => !!todo.completed ).length;
     const totalTodos = todos.length;
@@ -52,6 +54,14 @@ function TodoProvider(props){
         saveTodos(newTodos);
     };
 
+    const addTodo = (text) => {
+        const newTodos = [...todos];
+        newTodos.push({
+            completed: false,
+            text,
+        });
+        saveTodos(newTodos);
+    };
 
     return (
         // las propiedades que querramos compartir en nuestro
@@ -67,6 +77,9 @@ function TodoProvider(props){
             searchedTodos,
             completeTodo,
             deleteTodo,
+            addTodo,
+            openModal,
+            setOpenModal,
         }}>
             {props.children}
         </TodoContext.Provider>
